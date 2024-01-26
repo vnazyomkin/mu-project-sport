@@ -1,0 +1,6 @@
+export const MAIN_PAGES = '/'
+export const CALENDAR = '/calendar'
+export const DREAM = '/dream'
+export const EXERCISE = '/exercise'
+export const NUTRITILON = '/nutritilon'
+export const PROGRESS = '/progress'
