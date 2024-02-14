@@ -11,17 +11,23 @@
   align-items: center;
   justify-content: space-between;
 }
-
-.content_container > a,
-.container_sport > a {
+.container_sport > .active,
+.content_container > .active {
   text-decoration: none;
-  color: rgb(32, 32, 32);
+  color: rgb(0, 0, 0);
+  transition: all 0.4s;
+  font-weight: 600;
+}
+.container_sport > .noActive,
+.content_container > .noActive {
+  text-decoration: none;
+  color: rgb(94, 93, 93);
   transition: all 0.4s;
   font-weight: 600;
 }
 
-.content_container > a:hover,
-.container_sport > a:hover {
+.content_container > .noActive:hover,
+.container_sport > .noActive:hover {
   color: rgb(7, 7, 7);
   transition: all 0.4s;
   font-weight: 600;

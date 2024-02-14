@@ -1,20 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {
-  title: '',
-}
+const initialState = []
 
 const exerciseSlice = createSlice({
   name: 'exercise',
   initialState,
   reducers: {
-    setExerciseTittle: (state, action) => {
-      state.title = action.payload
+    addExercise: (state, action) => {
+      state.push(action.payload)
     },
   },
 })
 
-export const { setExerciseTittle } = exerciseSlice.actions
+export const { addExercise } = exerciseSlice.actions
 
-export const selectExerciseSlice = (state) => state.exercise.title
+export const selectExerciseDay = (state) => state.exercise.title
 export default exerciseSlice.reducer

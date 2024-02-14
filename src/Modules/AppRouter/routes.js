@@ -8,11 +8,11 @@ import {
 } from './consts'
 
 import MainPages from '../../Pages/MainPages'
-import Calendar from '../../Pages/Calendar'
 import Dream from '../../Pages/Dream'
 import Exercise from '../../Pages/Exercise'
 import Nutritilon from '../../Pages/Nutritilon'
 import Progress from '../../Pages/Progress'
+import MyCalendar from '../../Pages/MyCalendar'
 
 export const routes = [
   {
@@ -21,7 +21,7 @@ export const routes = [
   },
   {
     path: CALENDAR,
-    Component: Calendar,
+    Component: MyCalendar,
   },
   {
     path: DREAM,
@@ -38,5 +38,9 @@ export const routes = [
   {
     path: PROGRESS,
     Component: Progress,
+  },
+  {
+    path: EXERCISE + `/:name`,
+    Component: Exercise,
   },
 ]
