@@ -32,15 +32,20 @@ function Exercise() {
         })}
       </div>
       {!!exerciseCurrentList.length ? (
-        exerciseCurrentList.map((el) => {
+        exerciseCurrentList.map((currentList) => {
           return (
             <div className={styles.right_content_container}>
-              <ExercisesSingleElement key={el.id} el={el} />
+              <ExercisesSingleElement
+                key={currentList.id}
+                currentList={currentList}
+              />
             </div>
           )
         })
       ) : (
-        <h1>Выбор упражнения</h1>
+        <div className={styles.select_exercise}>
+          <h1>Подберите упражнение</h1>
+        </div>
       )}
     </div>
   )

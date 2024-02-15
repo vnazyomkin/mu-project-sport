@@ -14,5 +14,5 @@ const exerciseSlice = createSlice({
 
 export const { addExercise } = exerciseSlice.actions
 
-export const selectExerciseDay = (state) => state.exercise.title
+export const selectExerciseDay = (state) => state.exercise
 export default exerciseSlice.reducer

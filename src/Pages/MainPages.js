@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
 // import { selectExerciseSlice, setExerciseTittle } from '../State/exerciseSlice'
-import { useDispatch, useSelector } from 'react-redux'
+// import { useDispatch, useSelector } from 'react-redux'
 
 function MainPages() {
   // const txt = useSelector(selectExerciseSlice)
@@ -12,7 +11,7 @@ function MainPages() {
   return (
     <div>
       <input></input>
-      <h1></h1>
+      {/* <h1></h1> */}
     </div>
   )
 }

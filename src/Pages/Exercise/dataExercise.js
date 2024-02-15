@@ -98,7 +98,7 @@ const dataExercise = [
         isFavorite: false,
       },
       {
-        title: 'Тренажер изолирующий (сводить внутрь)',
+        title: 'Тренажер изолирующий (внутрь)',
         isFavorite: false,
       },
       {
@@ -106,7 +106,7 @@ const dataExercise = [
         isFavorite: false,
       },
       {
-        title: 'Тренажер изолирующий (снизу вверх)',
+        title: 'Тренажер изолирующий (вверх)',
         isFavorite: false,
       },
       {
@@ -178,7 +178,7 @@ const dataExercise = [
         isFavorite: false,
       },
       {
-        title: 'Задний пучек в тренажёрк (пекторал)',
+        title: 'Задний пучек в тренажёрк',
         isFavorite: false,
       },
     ],
@@ -187,26 +187,10 @@ const dataExercise = [
     path: '/running',
     name: 'Бег',
     exercise: [
-      // {
-      //   title: ' Жим ног в статике лёжа',
-      //   isFavorite: false,
-      // },
-      // {
-      //   title: 'Икроножные в статике сидя',
-      //   isFavorite: false,
-      // },
-      // {
-      //   title: 'Приседания',
-      //   isFavorite: false,
-      // },
-      // {
-      //   title: 'Задняя поверхность в статике сидя (тренажёр)',
-      //   isFavorite: false,
-      // },
-      // {
-      //   title: 'Задняя поверхность в статике лёжа (тренажёр)',
-      //   isFavorite: false,
-      // },
+      {
+        title: 'Время',
+        value: 'Дистанция',
+      },
     ],
   },
 ]
