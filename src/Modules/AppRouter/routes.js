@@ -10,7 +10,7 @@ import {
 import MainPages from '../../Pages/MainPages'
 import Dream from '../../Pages/Dream'
 import Exercise from '../../Pages/Exercise'
-import Nutritilon from '../../Pages/Nutritilon'
+import Nutritilon from '../../Pages/Nutritilon/Nutritilon'
 import Progress from '../../Pages/Progress'
 import MyCalendar from '../../Pages/MyCalendar'
 
