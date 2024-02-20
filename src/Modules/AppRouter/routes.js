@@ -43,4 +43,6 @@ export const routes = [
     path: EXERCISE + `/:name`,
     Component: Exercise,
   },
+  { path: NUTRITILON + `/:id`, Component: Nutritilon },
+  { path: EXERCISE + `:/id`, Component: Exercise },
 ]

@@ -1,20 +1,22 @@
 import { useState } from 'react'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { selectDay } from '../../State/calendarDay'
 import { createNutritilonWithId } from '../../UI/createNutricilon'
 import ReactDatePicker from 'react-datepicker'
 import { createDayWithId } from '../../UI/createDayWithId'
 import { useDispatch } from 'react-redux'
-import { addDay } from '../../State/exerciseDay'
+import { addDay, changeDay, deleteDay } from '../../State/calendarDay'
+import { useParams } from 'react-router-dom'
 import styles from './Nutritilon.module.css'
-import { IoTrashBinOutline } from 'react-icons/io5'
+import { IoTrashBinOutline, IoSaveOutline, IoAddSharp } from 'react-icons/io5'
 import { IoIosAddCircleOutline } from 'react-icons/io'
+import { MdDeleteForever } from 'react-icons/md'
+import { NUTRITILON } from '../../Modules/AppRouter/consts'
 
 function Nutritilon() {
-  const menuDay = {
-    data: newEvents.start,
-    breakfast: [],
-    lunch: [],
-    dinner: [],
-  }
+  const dayList = useSelector(selectDay)
+  const params = useParams()
 
   const dispatch = useDispatch()
 
@@ -31,10 +33,28 @@ function Nutritilon() {
   const [nameProduct, setNameProduct] = useState('')
   const [calories, setCalories] = useState('')
 
+  const [menuDay, setMenuDay] = useState({
+    breakfast: [],
+    lunch: [],
+    dinner: [],
+  })
+
+  useEffect(() => {
+    if (params.id) {
+      const day = dayList.find((el) => el.id === params.id)
+      let { breakfast, lunch, dinner } = day.menu
+      setMenuDay({ ...menuDay, breakfast, lunch, dinner })
+      setBreakfast(breakfast)
+      setLunch(lunch)
+      setDinner(dinner)
+      setNewEvents({ ...newEvents, start: day.start })
+    }
+  }, [])
+
   // стейты приёмов пищи
-  const [breakfast, setBreakfast] = useState([])
-  const [lunch, setLunch] = useState([])
-  const [dinner, setDinner] = useState([])
+  const [breakfast, setBreakfast] = useState(menuDay.breakfast)
+  const [lunch, setLunch] = useState(menuDay.lunch)
+  const [dinner, setDinner] = useState(menuDay.dinner)
 
   // подготовка к сохранению данных
   const newNutritilon = createNutritilonWithId({
@@ -48,12 +68,15 @@ function Nutritilon() {
     {
       if (timeOfReceipt === 'breakfast' && nameProduct && calories) {
         setBreakfast([...breakfast, newNutritilon])
+        setMenuDay({ ...menuDay, breakfast: breakfast })
       }
       if (timeOfReceipt === 'lunch' && nameProduct && calories) {
         setLunch([...lunch, newNutritilon])
+        setMenuDay({ ...menuDay, lunch: lunch })
       }
       if (timeOfReceipt === 'dinner' && nameProduct && calories) {
         setDinner([...dinner, newNutritilon])
+        setMenuDay({ ...menuDay, dinner: dinner })
       }
     }
 
@@ -63,14 +86,17 @@ function Nutritilon() {
 
   // Функции для удаления
   const handleToggleReceiptBreakfast = (el) => {
-    return setBreakfast(breakfast.filter((elem) => elem.id !== el.id))
+    setBreakfast(breakfast.filter((elem) => elem.id !== el.id))
+    setMenuDay({ ...menuDay, breakfast: breakfast })
   }
 
   const handleToggleReceiptLunch = (el) => {
-    return setLunch(lunch.filter((elem) => elem.id !== el.id))
+    setLunch(lunch.filter((elem) => elem.id !== el.id))
+    setMenuDay({ ...menuDay, lunch: lunch })
   }
   const handleToggleReceiptDinner = (el) => {
-    return setDinner(dinner.filter((elem) => elem.id !== el.id))
+    setDinner(dinner.filter((elem) => elem.id !== el.id))
+    setMenuDay({ ...menuDay, dinner: dinner })
   }
 
   // Считаем каллории
@@ -101,24 +127,46 @@ function Nutritilon() {
   const sumCalories = ccalBreakfast() + ccalDinner() + ccalLunch()
 
   // отправляем в exerciseDay
-  const createDayId = createDayWithId({
-    title: sumCalories,
-    // breakfast: breakfast,
-    // lunch: lunch,
-    // dinner: dinner,
-    star: newEvents.start,
+  const dayId = createDayWithId({
+    path: NUTRITILON,
+    menu: { breakfast, lunch, dinner },
+    title: `${sumCalories} кКал`,
+    start: newEvents.start,
     end: newEvents.start,
+    color: 'red',
   })
 
   // отправляем в ридакс
   const addDayNutritilon = () => {
+    if (breakfast.length > 0 || dinner.length > 0 || lunch.length > 0) {
+      dispatch(addDay(dayId))
+      setMenuDay(dayId.menu)
+      setBreakfast([])
+      setLunch([])
+      setDinner([])
+      setNewEvents({
+        start: '',
+      })
+    }
+  }
+
+  const changeNutritilon = () => {
     dispatch(
-      addDay({
+      changeDay({
+        menu: { breakfast, lunch, dinner },
         title: `${sumCalories} кКал`,
         start: newEvents.start,
         end: newEvents.start,
+        color: 'red',
+        id: params.id,
       })
     )
+    setMenuDay(dayId.menu)
+  }
+
+  const deleteNutritilon = () => {
+    dispatch(deleteDay(params.id))
+    setMenuDay(menuDay)
     setBreakfast([])
     setLunch([])
     setDinner([])
@@ -152,7 +200,6 @@ function Nutritilon() {
             style={{ width: '40px', height: '40px' }}
             className={styles.add_nutritilon_btn}
           />
-          {/* <button onClick={() => console.log(fnArrays())}>Показать</button> */}
         </div>
       </div>
       <div className={styles.nutricilon_list_container}>
@@ -242,7 +289,26 @@ function Nutritilon() {
         </div>
       </div>
       <div className={styles.nutritilon_footer_container}>
+        {params.id ? (
+          <>
+            <MdDeleteForever
+              onClick={deleteNutritilon}
+              className={styles.footer_icons_delete}
+            />
+            <IoSaveOutline
+              onClick={changeNutritilon}
+              className={styles.footer_icons}
+            />
+          </>
+        ) : (
+          <IoAddSharp
+            onClick={addDayNutritilon}
+            className={styles.footer_icons}
+          />
+        )}
         <ReactDatePicker
+          className={styles.calendar}
+          value={newEvents.start}
           placeholderText="Выбор даты"
           style={{ marginRight: '10px', width: '400px' }}
           selected={newEvents.start}
@@ -253,7 +319,6 @@ function Nutritilon() {
             })
           }
         />
-        <button onClick={addDayNutritilon}>Отправить</button>
         <h3 style={{ color: 'white' }}>{`Всего: ${sumCalories} кКал`}</h3>
       </div>
     </div>

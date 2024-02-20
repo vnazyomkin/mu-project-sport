@@ -164,9 +164,40 @@
 .add_nutritilon_btn {
   transition: 0.5s all;
   cursor: pointer;
-  color: rgb(0, 97, 3);
+  color: #006103;
 }
 .add_nutritilon_btn:hover {
   transition: 0.5s all;
   color: rgb(8, 230, 4);
+}
+
+.calendar {
+  height: 40px;
+  text-align: center;
+}
+
+.footer_icons {
+  width: 35px;
+  height: 35px;
+  color: #006103;
+  cursor: pointer;
+  transition: 0.5s all;
+}
+
+.footer_icons:hover {
+  color: #06de0d;
+  transition: 0.5s all;
+}
+
+.footer_icons_delete {
+  width: 35px;
+  height: 35px;
+  color: #710600;
+  cursor: pointer;
+  transition: 0.5s all;
+}
+
+.footer_icons_delete:hover {
+  color: #d30b00;
+  transition: 0.5s all;
 }

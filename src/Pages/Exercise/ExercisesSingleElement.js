@@ -2,7 +2,7 @@ import { createDayWithId } from '../../UI/createDayWithId'
 import ReactDatePicker from 'react-datepicker'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { addDay } from '../../State/exerciseDay'
+// import { addDay } from '../../State/exerciseDay'
 import { addExercise } from '../../State/exerciseSlice'
 import { useParams } from 'react-router-dom'
 import styles from './ExerciseSingleElement.module.css'
@@ -10,6 +10,8 @@ import { FaCheck } from 'react-icons/fa'
 import { TiDeleteOutline } from 'react-icons/ti'
 import { IoIosAddCircleOutline } from 'react-icons/io'
 import { MdOutlineClose } from 'react-icons/md'
+import { addDay } from '../../State/calendarDay'
+import { EXERCISE } from '../../Modules/AppRouter/consts'
 // import { IoAddSharp } from 'react-icons/io5'
 
 function ExercisesSingleElement({ currentList }) {
@@ -33,10 +35,12 @@ function ExercisesSingleElement({ currentList }) {
 
   // подготавливаем данные для отправки в магазин (общая информация)
   const createDayId = createDayWithId({
+    path: EXERCISE,
     title: currentList.name,
     exercise: exerciseArr.filter((el) => el.isFavorite),
-    startDay: newEvents.start,
-    endDay: newEvents.start,
+    start: newEvents.start,
+    end: newEvents.start,
+    color: '#006103',
   })
 
   const handleToggleIsFavorite = (id) => {
@@ -47,13 +51,7 @@ function ExercisesSingleElement({ currentList }) {
   }
 
   const handleEventsFunction = () => {
-    dispatch(
-      addDay({
-        start: newEvents.start,
-        end: newEvents.start,
-        title: currentList.name,
-      })
-    )
+    dispatch(addDay(createDayId))
     dispatch(addExercise(createDayId))
     setExerciseArr(currentList.exerciseId)
     // setNewEvents({ ...newEvents, start: '', end: '' })
