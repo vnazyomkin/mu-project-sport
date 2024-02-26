@@ -13,6 +13,7 @@ import Exercise from '../../Pages/Exercise'
 import Nutritilon from '../../Pages/Nutritilon/Nutritilon'
 import Progress from '../../Pages/Progress'
 import MyCalendar from '../../Pages/MyCalendar'
+import ExerciseDay from '../../Pages/Exercise/ExerciseDay'
 
 export const routes = [
   {
@@ -44,5 +45,5 @@ export const routes = [
     Component: Exercise,
   },
   { path: NUTRITILON + `/:id`, Component: Nutritilon },
-  { path: EXERCISE + `:/id`, Component: Exercise },
+  { path: EXERCISE + `/:params` + `/:id`, Component: ExerciseDay },
 ]

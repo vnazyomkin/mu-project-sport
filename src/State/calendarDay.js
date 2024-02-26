@@ -10,7 +10,7 @@ const calendarDay = createSlice({
       state.push(action.payload)
     },
     changeDay: (state, action) => {
-      let id = state.indexOf(action.payload.id)
+      let id = state.findIndex((el) => el.id === action.payload.id)
       state.splice(id, 1, action.payload)
     },
     deleteDay: (state, action) => {

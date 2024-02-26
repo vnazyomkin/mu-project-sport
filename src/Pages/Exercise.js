@@ -11,7 +11,7 @@ function Exercise() {
   const exerciseCurrentList = dataExerciseId.filter(
     (el) => el.path === `/${params.name}`
   )
-  console.log(exerciseCurrentList)
+  console.log(params)
 
   return (
     <div className={styles.container}>

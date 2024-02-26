@@ -1,14 +1,12 @@
 .container {
-  background-color: #5fff67;
   border-radius: 3%;
-  border: 1px solid rgb(45, 94, 0);
   position: absolute;
   top: 38%;
   left: 50%;
   width: 300px;
-  height: 130px;
+  height: 400px;
   opacity: 1;
-  z-index: 1;
+  z-index: 1000;
   text-align: center;
   cursor: pointer;
   color: rgb(38, 38, 38);
@@ -16,16 +14,93 @@
   font-size: 15px;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  gap: 15px;
+  border: 1px solid black;
 }
 
-.close_container {
+.container > h1 {
+  border-bottom: 1px solid black;
+  height: 10%;
+  margin: 0;
+  font-size: 25px;
+  color: rgb(255, 255, 255);
+}
+
+.close {
+  height: 5%;
+  position: relative;
+  top: 0;
+  left: 90%;
+  width: 30px;
+  height: 30px;
+  transition: 1s all;
+  color: rgb(255, 255, 255);
+}
+.close:hover {
+  color: rgb(0, 0, 0);
+  transition: 1s all;
+}
+
+.content_container {
+  margin: 0 10px 0 10px;
+  height: 70%;
   display: flex;
   align-items: center;
-  justify-content: right;
+  flex-direction: column;
 }
 
-.details_container {
+.content_element {
+  margin-left: 10px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: left;
+  gap: 5px;
+  font-size: 10px;
+  color: rgb(228, 226, 223);
+}
+
+.details_container {
+  border-top: 1px solid black;
+  height: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 5px 5px 5px;
+}
+
+.details_container > a {
+  text-decoration: none;
+  color: rgb(234, 234, 234);
+  font-weight: 500;
+  font-size: 15px;
+  transition: 1s all;
+}
+
+.details_container > a:hover {
+  color: white;
+  transition: 1s all;
+}
+
+.content_element__nutritilon {
+  width: 100%;
+  font-size: 12px;
+  color: rgb(244, 244, 244);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.delete {
+  color: white;
+  transition: 1s all;
+  width: 25px;
+  height: 25px;
+}
+
+.delete:hover {
+  color: black;
+  transition: 1s all;
 }

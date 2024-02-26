@@ -13,12 +13,18 @@ import { IoTrashBinOutline, IoSaveOutline, IoAddSharp } from 'react-icons/io5'
 import { IoIosAddCircleOutline } from 'react-icons/io'
 import { MdDeleteForever } from 'react-icons/md'
 import { NUTRITILON } from '../../Modules/AppRouter/consts'
+import { FaSpinner } from 'react-icons/fa'
 
 function Nutritilon() {
+  // получаем стейт из ридакса
   const dayList = useSelector(selectDay)
+
+  // параметры пути
   const params = useParams()
 
   const dispatch = useDispatch()
+
+  const [isVisibleSpinner, setIsVisibleSpinner] = useState(false)
 
   // инфо про дату
   const [newEvents, setNewEvents] = useState({
@@ -33,12 +39,14 @@ function Nutritilon() {
   const [nameProduct, setNameProduct] = useState('')
   const [calories, setCalories] = useState('')
 
+  // начальный стейт меню
   const [menuDay, setMenuDay] = useState({
     breakfast: [],
     lunch: [],
     dinner: [],
   })
 
+  // получанм меню по индексу
   useEffect(() => {
     if (params.id) {
       const day = dayList.find((el) => el.id === params.id)
@@ -130,6 +138,7 @@ function Nutritilon() {
   const dayId = createDayWithId({
     path: NUTRITILON,
     menu: { breakfast, lunch, dinner },
+    calories: [ccalBreakfast(), ccalLunch(), ccalDinner()],
     title: `${sumCalories} кКал`,
     start: newEvents.start,
     end: newEvents.start,
@@ -150,11 +159,14 @@ function Nutritilon() {
     }
   }
 
+  // сохраняем день
   const changeNutritilon = () => {
     dispatch(
       changeDay({
+        path: NUTRITILON,
         menu: { breakfast, lunch, dinner },
         title: `${sumCalories} кКал`,
+        calories: [ccalBreakfast(), ccalLunch(), ccalDinner()],
         start: newEvents.start,
         end: newEvents.start,
         color: 'red',
@@ -162,8 +174,13 @@ function Nutritilon() {
       })
     )
     setMenuDay(dayId.menu)
+    setIsVisibleSpinner(true)
+    setTimeout(() => {
+      setIsVisibleSpinner(false)
+    }, 1500)
   }
 
+  // удаляем день
   const deleteNutritilon = () => {
     dispatch(deleteDay(params.id))
     setMenuDay(menuDay)
@@ -289,23 +306,8 @@ function Nutritilon() {
         </div>
       </div>
       <div className={styles.nutritilon_footer_container}>
-        {params.id ? (
-          <>
-            <MdDeleteForever
-              onClick={deleteNutritilon}
-              className={styles.footer_icons_delete}
-            />
-            <IoSaveOutline
-              onClick={changeNutritilon}
-              className={styles.footer_icons}
-            />
-          </>
-        ) : (
-          <IoAddSharp
-            onClick={addDayNutritilon}
-            className={styles.footer_icons}
-          />
-        )}
+        {isVisibleSpinner ? <FaSpinner className={styles.spinner} /> : false}
+        <h3 style={{ color: 'white' }}>{`Всего: ${sumCalories} кКал`}</h3>
         <ReactDatePicker
           className={styles.calendar}
           value={newEvents.start}
@@ -319,7 +321,23 @@ function Nutritilon() {
             })
           }
         />
-        <h3 style={{ color: 'white' }}>{`Всего: ${sumCalories} кКал`}</h3>
+        {params.id ? (
+          <>
+            <IoSaveOutline
+              onClick={changeNutritilon}
+              className={styles.footer_icons}
+            />
+            <MdDeleteForever
+              onClick={deleteNutritilon}
+              className={styles.footer_icons_delete}
+            />
+          </>
+        ) : (
+          <IoAddSharp
+            onClick={addDayNutritilon}
+            className={styles.footer_icons}
+          />
+        )}
       </div>
     </div>
   )
