@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { EXERCISE, NUTRITILON } from '../Modules/AppRouter/consts'
+import { DREAM, EXERCISE, NUTRITILON } from '../Modules/AppRouter/consts'
 import styles from './Modal.module.css'
 import { useDispatch } from 'react-redux'
 import { deleteDay } from '../State/calendarDay'
@@ -21,19 +21,19 @@ function Modal({ event, setActive }) {
         className={styles.close}
       />
 
-      <h1>
-        {event.color === '#006103' ? event.title : `Всего: ${event.title}`}
-      </h1>
+      <h1>{event.color !== 'red' ? event.title : `Всего: ${event.title}`}</h1>
       <div className={styles.content_container}>
         {event.color === '#006103' ? (
-          event.exercise.map((el) => {
-            return (
-              <div className={styles.content_element}>
-                <h2>{el.title}</h2>
-              </div>
-            )
-          })
-        ) : (
+          event.exercise
+            .filter((elem) => elem.isFavorite)
+            .map((el) => {
+              return (
+                <div className={styles.content_element}>
+                  <h2>{el.title}</h2>
+                </div>
+              )
+            })
+        ) : event.color === 'red' ? (
           <>
             <div className={styles.content_element__nutritilon}>
               <h2>Утро</h2>
@@ -48,12 +48,25 @@ function Modal({ event, setActive }) {
               <h2>{`${event.calories[2]} кКал`}</h2>
             </div>
           </>
+        ) : (
+          <div className={styles.content_element__dream}>
+            <div className={styles.conteiner_element__dream}>
+              <h1>Отход ко сну</h1>
+              <h2>{event.dremStart}</h2>
+            </div>
+            <div className={styles.conteiner_element__dream}>
+              <h1>Пробуждение</h1>
+              <h2>{event.dreamEnd}</h2>
+            </div>
+          </div>
         )}
       </div>
       <div className={styles.details_container}>
         <Link
           to={
             event.path === NUTRITILON
+              ? `${event.path}/${event.id}`
+              : event.path === DREAM
               ? `${event.path}/${event.id}`
               : EXERCISE + `/${event.params}` + `/${event.id}`
           }

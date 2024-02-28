@@ -321,6 +321,13 @@ function ExerciseDay() {
                   }
                 />
               </div>
+              <div>
+                {isVisibleSpinner ? (
+                  <FaSpinner className={styles.spinner} />
+                ) : (
+                  false
+                )}
+              </div>
               <IoSaveOutline
                 onClick={changeExercise}
                 style={{ width: '40px', height: '40px' }}
@@ -336,7 +343,6 @@ function ExerciseDay() {
       ) : (
         true
       )}
-      {isVisibleSpinner ? <FaSpinner className={styles.spinner} /> : false}
     </>
   )
 }

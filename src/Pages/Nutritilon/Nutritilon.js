@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { selectDay } from '../../State/calendarDay'
-import { createNutritilonWithId } from '../../UI/createNutricilon'
 import ReactDatePicker from 'react-datepicker'
 import { createDayWithId } from '../../UI/createDayWithId'
 import { useDispatch } from 'react-redux'
@@ -65,7 +64,7 @@ function Nutritilon() {
   const [dinner, setDinner] = useState(menuDay.dinner)
 
   // подготовка к сохранению данных
-  const newNutritilon = createNutritilonWithId({
+  const newNutritilon = createDayWithId({
     categories: timeOfReceipt,
     name: nameProduct,
     calories: calories,

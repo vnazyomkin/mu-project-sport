@@ -344,6 +344,9 @@
 }
 
 .spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   animation: spinner 1s infinite linear;
   width: 25px;
   height: 25px;

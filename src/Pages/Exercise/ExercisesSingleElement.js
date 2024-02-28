@@ -85,8 +85,10 @@ function ExercisesSingleElement({ currentList }) {
 
   // Отправляем в ридакс
   const handleEventsFunction = () => {
-    dispatch(addDay(createDayId))
-    setExerciseArr(currentList.exerciseId)
+    if (newEvents.start) {
+      dispatch(addDay(createDayId))
+      setExerciseArr(currentList.exerciseId)
+    }
   }
 
   return (

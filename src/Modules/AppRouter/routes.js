@@ -8,7 +8,7 @@ import {
 } from './consts'
 
 import MainPages from '../../Pages/MainPages'
-import Dream from '../../Pages/Dream'
+import Dream from '../../Pages/Dream/Dream'
 import Exercise from '../../Pages/Exercise'
 import Nutritilon from '../../Pages/Nutritilon/Nutritilon'
 import Progress from '../../Pages/Progress'
@@ -45,5 +45,6 @@ export const routes = [
     Component: Exercise,
   },
   { path: NUTRITILON + `/:id`, Component: Nutritilon },
+  { path: DREAM + `/:id`, Component: Dream },
   { path: EXERCISE + `/:params` + `/:id`, Component: ExerciseDay },
 ]
