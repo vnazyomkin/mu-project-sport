@@ -5,7 +5,7 @@ export const exerciseWithId = (data) => {
     let exerciseId = exercise.map((el) => {
       return name === 'Бег'
         ? { ...el, id: uuidv4(), distance: '', time: '', isFavorite: true }
-        : { ...el, id: uuidv4(), current: '', max: '' }
+        : { ...el, id: uuidv4(), current: '', max: '', isFavorite: false }
     })
     return { path, name, exerciseId }
   })

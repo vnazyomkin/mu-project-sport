@@ -14,7 +14,10 @@ import { IoAddSharp } from 'react-icons/io5'
 import { RiAddCircleFill } from 'react-icons/ri'
 import { IoIosCloseCircleOutline } from 'react-icons/io'
 
+import { addExercise } from '../../State/exerciseDataSlice'
+
 function ExercisesSingleElement({ currentList }) {
+  console.log(currentList)
   const [isActicve, setIsActive] = useState(false)
   const [newDayExercise, setNewDayExercise] = useState({
     title: '',
@@ -47,6 +50,13 @@ function ExercisesSingleElement({ currentList }) {
           ...exerciseArr,
           {
             title: newDayExercise.title,
+            isFavorite: false,
+          },
+        ])
+        setExerciseArr([
+          ...exerciseArr,
+          {
+            title: newDayExercise.title,
             isFavorite: true,
             max: newDayExercise.max,
             current: newDayExercise.current,
@@ -69,7 +79,7 @@ function ExercisesSingleElement({ currentList }) {
   const createDayId = createDayWithId({
     params: params.name,
     title: currentList.name,
-    exercise: exerciseArr.filter((el) => el.isFavorite),
+    exercise: exerciseArr,
     start: newEvents.start,
     end: newEvents.start,
     color: '#006103',
@@ -87,7 +97,14 @@ function ExercisesSingleElement({ currentList }) {
   const handleEventsFunction = () => {
     if (newEvents.start) {
       dispatch(addDay(createDayId))
-      setExerciseArr(currentList.exerciseId)
+      dispatch(
+        addExercise({
+          path: params.name,
+          exercise: exerciseArr,
+        })
+      )
+      console.log(exerciseArr)
+      // setExerciseArr(currentList.exerciseId)
     }
   }
 

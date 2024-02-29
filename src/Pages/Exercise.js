@@ -4,14 +4,18 @@ import { EXERCISE } from '../Modules/AppRouter/consts'
 import dataExercise from './Exercise/dataExercise'
 import ExercisesSingleElement from './Exercise/ExercisesSingleElement'
 import { exerciseWithId } from '../UI/exerciseWithId'
+import { useSelector } from 'react-redux'
+import { selectExerciseData } from '../State/exerciseDataSlice'
 
 function Exercise() {
-  const dataExerciseId = exerciseWithId(dataExercise)
+  const dataExercise2 = useSelector(selectExerciseData)
+
+  const dataExerciseId = exerciseWithId(dataExercise2)
   const params = useParams()
   const exerciseCurrentList = dataExerciseId.filter(
     (el) => el.path === `/${params.name}`
   )
-  console.log(params)
+  console.log(dataExercise2)
 
   return (
     <div className={styles.container}>

@@ -4,7 +4,7 @@ const dataExercise = [
     name: 'Ноги',
     exercise: [
       {
-        title: ' Жим ног в статике лёжа',
+        title: 'Жим ног в статике лёжа',
         isFavorite: false,
       },
       {
