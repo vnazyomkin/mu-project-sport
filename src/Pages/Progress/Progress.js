@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import ChartComponent from '../UI/ChartComponent'
+import ChartComponent from '../../UI/ChartComponent'
 import { useSelector } from 'react-redux'
-import { selectDay } from '../State/calendarDay'
-import { dataProgressExercise } from '../UI/dataProgress/dataProgressExercise'
-import dataExercise from './Exercise/dataExercise'
+import { selectDay } from '../../State/calendarDay'
+import { dataProgressExercise } from '../../UI/dataProgress/dataProgressExercise'
+import { dataProgressExerciseRun } from '../../UI/dataProgress/dataProgressExerciseRun'
+import { selectExerciseData } from '../../State/exerciseDataSlice'
+import { dataProgressDream } from '../../UI/dataProgress/dataProgressDream'
+import { dataProgressNutritilon } from '../../UI/dataProgress/dataProgressNutritilon'
+import styles from './Progress.module.css'
 
 function Progress() {
+  const dataExercise = useSelector(selectExerciseData)
   // Выбор типа данных (упражнения, сон, питание)
   const [option, setOption] = useState('')
 
@@ -42,39 +47,63 @@ function Progress() {
     dataProgressExercise(day, valueName, valueExercise)
   )
 
-  console.log(valueExercise)
-
   // подставляем данные в зависимости от выбранного упражнения
   useEffect(() => {
-    setMyData(dataProgressExercise(day, valueName, valueExercise))
-  }, [valueName, valueExercise])
+    if (option === 'Упражнения') {
+      valueName !== '/running'
+        ? setMyData(dataProgressExercise(day, valueName, valueExercise))
+        : setMyData(dataProgressExerciseRun(day, valueName))
+    }
+    if (option === 'Сон') {
+      setMyData(dataProgressDream(day))
+    }
+    if (option === 'Питание') {
+      setMyData(dataProgressNutritilon(day))
+    }
+  }, [valueName, valueExercise, option])
+  console.log(myData)
+
+  let objectAllData = {
+    data:
+      option === 'Упражнения'
+        ? valueName !== '/running'
+          ? myData.map((el) => el.max)
+          : myData.map((el) => el.distance)
+        : myData.map((el) => el.value),
+    label:
+      option === 'Упражнения'
+        ? valueName !== '/running'
+          ? 'Маx'
+          : 'Дистанция (m)'
+        : option === 'Сон'
+        ? 'Сон (ч)'
+        : option === 'Питание'
+        ? 'кКал'
+        : true,
+    borderColor: '#3333ff',
+    fill: true,
+    lineTension: 0.5,
+  }
+
+  let objectOnlyExerciseData = {
+    data: myData.map((el) => el.current),
+    label: 'Средний',
+    borderColor: '#ff3333',
+
+    fill: true,
+    lineTension: 0.5,
+  }
 
   const userData = {
-    labels: option === 'Упражнения' ? myData.map((el) => el.date) : [1],
-    datasets: [
-      {
-        data: option === 'Упражнения' ? myData.map((el) => el.max) : true,
-        label: 'Max',
-        borderColor: '#3333ff',
-        fill: true,
-        lineTension: 0.5,
-      },
-      option === 'Упражнения'
-        ? {
-            data:
-              option === 'Упражнения' ? myData.map((el) => el.current) : true,
-            label: 'Current',
-            borderColor: '#ff3333',
-
-            fill: true,
-            lineTension: 0.5,
-          }
-        : true,
-    ],
+    labels: myData.map((el) => el.date),
+    datasets:
+      option === 'Упражнения' && valueName !== '/running'
+        ? [objectAllData, objectOnlyExerciseData]
+        : [objectAllData],
   }
   return (
-    <div>
-      <div style={{ width: 700 }}>
+    <div className={styles.container}>
+      <div className={styles.content_container}>
         <ChartComponent chartData={userData} />
       </div>
       <div>
@@ -127,6 +156,7 @@ function Progress() {
           })}
         </div>
       ) : (
+        // задел под питание и сон
         false
       )}
       <div>
@@ -135,7 +165,7 @@ function Progress() {
               .filter((el) => el.name === exerciseCategory)
               .map((elem) =>
                 elem.exercise.map((elems) => {
-                  return (
+                  return elems.title !== 'Время' ? (
                     <label>
                       <input
                         type="radio"
@@ -148,6 +178,9 @@ function Progress() {
                       />
                       {elems.title}
                     </label>
+                  ) : (
+                    // задел под бег
+                    true
                   )
                 })
               )

@@ -1,21 +1,19 @@
 import { NavLink, useParams } from 'react-router-dom'
 import styles from './Exercise.module.css'
 import { EXERCISE } from '../Modules/AppRouter/consts'
-import dataExercise from './Exercise/dataExercise'
 import ExercisesSingleElement from './Exercise/ExercisesSingleElement'
 import { exerciseWithId } from '../UI/exerciseWithId'
 import { useSelector } from 'react-redux'
 import { selectExerciseData } from '../State/exerciseDataSlice'
 
 function Exercise() {
-  const dataExercise2 = useSelector(selectExerciseData)
+  const dataExercise = useSelector(selectExerciseData)
 
-  const dataExerciseId = exerciseWithId(dataExercise2)
+  const dataExerciseId = exerciseWithId(dataExercise)
   const params = useParams()
   const exerciseCurrentList = dataExerciseId.filter(
     (el) => el.path === `/${params.name}`
   )
-  console.log(dataExercise2)
 
   return (
     <div className={styles.container}>
