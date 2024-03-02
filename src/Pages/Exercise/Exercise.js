@@ -1,10 +1,10 @@
 import { NavLink, useParams } from 'react-router-dom'
 import styles from './Exercise.module.css'
-import { EXERCISE } from '../Modules/AppRouter/consts'
-import ExercisesSingleElement from './Exercise/ExercisesSingleElement'
-import { exerciseWithId } from '../UI/exerciseWithId'
+import { EXERCISE } from '../../Modules/AppRouter/consts'
+import ExercisesSingleElement from './ExercisesSingleElement'
+import { exerciseWithId } from '../../UI/exerciseWithId'
 import { useSelector } from 'react-redux'
-import { selectExerciseData } from '../State/exerciseDataSlice'
+import { selectExerciseData } from '../../State/exerciseDataSlice'
 
 function Exercise() {
   const dataExercise = useSelector(selectExerciseData)
