@@ -37,13 +37,12 @@ function MyCalendar() {
 
   return (
     <div className={styles.container}>
-      <h1>Календарь</h1>
       <Calendar
         localizer={localizer}
         events={allEvents}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: '850px', margin: '50px' }}
+        style={{ height: '670px', margin: '0px' }}
         eventPropGetter={(event) => {
           return {
             style: {

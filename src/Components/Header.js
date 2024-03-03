@@ -11,7 +11,7 @@ import {
 } from '../Modules/AppRouter/consts'
 import logo from '../img/logo.png'
 
-function Header() {
+function Header({ setAuthorization }) {
   return (
     <div className={styles.container}>
       <div className={styles.content_container}>
@@ -59,6 +59,13 @@ function Header() {
           }
         >
           Календарь
+        </NavLink>
+        <NavLink
+          to={MAIN_PAGES}
+          className={styles.exit}
+          onClick={() => setAuthorization(false)}
+        >
+          Выйти
         </NavLink>
       </div>
     </div>

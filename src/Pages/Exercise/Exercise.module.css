@@ -1,13 +1,13 @@
 .container {
-  margin: 60px;
-
+  margin: 40px 40px 0px 40px;
   display: flex;
 }
 
 .content_container {
+  height: 600px;
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: 50px;
   width: 30%;
   margin-right: 50px;
 }
@@ -38,8 +38,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  width: 70%;
+  width: 800px;
+  height: 500px;
   border-left: 1px solid wheat;
 }
 
