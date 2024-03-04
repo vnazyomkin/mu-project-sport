@@ -10,21 +10,17 @@ import {
   MAIN_PAGES,
 } from '../Modules/AppRouter/consts'
 import logo from '../img/logo.png'
+import { resetInfo } from '../State/dataProfileSlice'
+import { useDispatch } from 'react-redux'
 
 function Header({ setAuthorization }) {
+  const dispatch = useDispatch()
+
   return (
     <div className={styles.container}>
       <div className={styles.content_container}>
         <NavLink to={MAIN_PAGES}>
           <img src={logo} alt="logo" width="50px" height="40px" />
-        </NavLink>
-        <NavLink
-          to={PROGRESS}
-          className={({ isActive }) =>
-            isActive ? styles.active : styles.noActive
-          }
-        >
-          Прогресс
         </NavLink>
         <div className={styles.container_sport}>
           <NavLink
@@ -52,14 +48,6 @@ function Header({ setAuthorization }) {
             Сон
           </NavLink>
         </div>
-        <NavLink
-          to={CALENDAR}
-          className={({ isActive }) =>
-            isActive ? styles.active : styles.noActive
-          }
-        >
-          Календарь
-        </NavLink>
         <NavLink
           to={MAIN_PAGES}
           className={styles.exit}

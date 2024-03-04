@@ -51,12 +51,12 @@
   font-size: 20px;
   font-weight: 600;
   cursor: pointer;
-  color: #007004;
+  color: #b9b9b9;
 }
 
 .btn:hover {
   transition: 0.5s all;
-  color: #00cf07;
+  color: #ffffff;
 }
 
 .spinner {

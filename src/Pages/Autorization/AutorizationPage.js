@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
 import styles from './Authorization.module.css'
 import { FaSpinner } from 'react-icons/fa'
-import { NavLink } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import {
+  addAge,
+  addHeight,
+  addName,
+  addWeight,
+} from '../../State/dataProfileSlice'
 
 function AutorizationPage({ setAuthorization }) {
   const [password, setPassword] = useState('')
@@ -10,12 +16,18 @@ function AutorizationPage({ setAuthorization }) {
 
   const [registration, setRegistration] = useState(false)
 
+  const dispatch = useDispatch()
+
   const handelSumbit = () => {
     if (password && name) {
+      dispatch(addName(name))
       setIsVisibleSpinner(true)
       setTimeout(() => {
         setIsVisibleSpinner(false)
         setAuthorization(true)
+        dispatch(addWeight(''))
+        dispatch(addAge(''))
+        dispatch(addHeight(''))
       }, 2500)
     }
   }

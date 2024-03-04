@@ -7,12 +7,12 @@ import {
   PROGRESS,
 } from './consts'
 
-import MainPages from '../../Pages/MainPages'
+import MainPages from '../../Pages/MyPages/MainPages'
 import Dream from '../../Pages/Dream/Dream'
 import Exercise from '../../Pages/Exercise/Exercise'
 import Nutritilon from '../../Pages/Nutritilon/Nutritilon'
 import Progress from '../../Pages/Progress/Progress'
-import MyCalendar from '../../Pages/MyCalendar'
+import MyCalendar from '../../Pages/Calendar/MyCalendar'
 import ExerciseDay from '../../Pages/Exercise/ExerciseDay'
 
 export const routes = [
